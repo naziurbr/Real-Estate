@@ -1,0 +1,116 @@
+@php
+    $setting_data = App\Models\SiteSetting::first();
+@endphp
+<header class="main-header">
+    <!-- header-top -->
+    <div class="header-top">
+        <div class="top-inner clearfix">
+            <div class="left-column pull-left">
+                <ul class="info clearfix">
+                    <li><i class="far fa-map-marker-alt"></i>{{ $setting_data->company_address??'' }}</li>
+                    <li><i class="far fa-clock"></i>Mon - Sat 9.00 - 18.00</li>
+                    <li><i class="far fa-phone"></i><a href="tel:2512353256">{{ $setting_data->support_phone??'' }}</a></li>
+                </ul>
+            </div>
+            <div class="right-column pull-right">
+                <ul class="social-links clearfix">
+                    <li>
+                        <a href="{{ $setting_data->facebook??'#' }}"><i class="fab fa-facebook-f"></i></a>
+                    </li>
+                    <li>
+                        <a href="{{ $setting_data->facebook??'#' }}"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fab fa-pinterest-p"></i></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fab fa-google-plus-g"></i></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fab fa-vimeo-v"></i></a>
+                    </li>
+                </ul>
+                @auth
+                <div class="sign-box">
+                    <a href="{{ route('dashboard') }}"><i class="fas fa-house-user"></i>Dashboard</a>
+                    <a href="{{ route('user.logout') }}" style="margin-left:10px; "><i class="fas fa-user"></i>Logout</a>
+                </div>
+                
+                @else
+                <div class="sign-box">
+                    <a href="{{ route('login') }}"><i class="fas fa-user"></i>Sign In</a>
+                </div>
+                @endauth
+                
+            </div>
+        </div>
+    </div>
+    <!-- header-lower -->
+    <div class="header-lower">
+    <div class="container"> <div class="outer-box">
+            <div class="main-box clearfix"> <div class="logo-box pull-left">
+                    <figure class="logo">
+                        <a href="{{ url('/') }}">
+                            <img src="{{ asset($setting_data?->logo ?? 'upload/no_image.jpg') }}" alt="logo" style="max-height: 70px; width: auto;">
+                        </a>
+                    </figure>
+                </div>
+
+                <div class="menu-area pull-right clearfix">
+                    <div class="mobile-nav-toggler">
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                    </div>
+                    
+                    <nav class="main-menu navbar-expand-md navbar-light">
+                        <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                            <ul class="navigation clearfix">
+                                <li><a href="{{ url('/') }}">Home</a></li>
+                                <li><a href="{{ url('/') }}">About Us</a></li>
+                                <li class="dropdown"><a href="#">Property</a>
+                                    <ul>
+                                        <li><a href="{{ route('rent.property') }}">Rent Property</a></li>
+                                        <li><a href="{{ route('buy.property') }}">Buy Property</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{{ url('/') }}">Agent</a></li>
+                                <li><a href="{{ route('blog.list') }}">Blog</a></li>
+                                <li class="current"><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="btn-box">
+                        <a href="{{ route('agent.login') }}" class="theme-btn btn-one"><span>+</span>Add Listing</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!--sticky Header-->
+   <div class="sticky-header">
+    <div class="container"> <div class="outer-box">
+            <div class="main-box">
+                <div class="logo-box">
+                    <figure class="logo">
+                        <a href="{{ url('/') }}">
+                            <img src="{{ asset($setting_data?->logo ?? 'upload/no_image.jpg') }}" alt="logo" style="max-height: 40px;" />
+                        </a>
+                    </figure>
+                </div>
+                <div class="menu-area clearfix">
+                    <nav class="main-menu clearfix">
+                        </nav>
+                </div>
+                <div class="btn-box">
+                    <a href="{{ route('agent.login') }}" class="theme-btn btn-one"><span>+</span>Add Listing</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</header>
