@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-
 use Illuminate\Database\Seeder;
-use DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,8 +13,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            //Admin
+        // Using an array to create multiple users at once
+        $users = [
+            // Admin account
             [
                 'name' => 'Admin',
                 'username' => 'admin',
@@ -25,7 +24,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 'admin',
                 'status' => 'active'
             ],
-            // Agent
+            // Agent account
             [
                 'name' => 'Agent',
                 'username' => 'agent',
@@ -34,7 +33,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 'agent',
                 'status' => 'active'
             ],
-            // User
+            // Regular User account
             [
                 'name' => 'User',
                 'username' => 'user',
@@ -43,6 +42,13 @@ class UsersTableSeeder extends Seeder
                 'role' => 'user',
                 'status' => 'active'
             ]
-            ]);
+        ];
+
+        foreach ($users as $user) {
+            User::updateOrCreate(
+                ['email' => $user['email']],
+                $user
+            );
+        }
     }
 }

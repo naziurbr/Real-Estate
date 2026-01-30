@@ -10,17 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id')->unsigned();
-            $table->integer('post_id')->unsigned();
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->text('subject');
-            $table->text('message');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('comments', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('user_id');
+        $table->unsignedBigInteger('post_id');
+        $table->integer('parent_id')->nullable();
+        $table->string('subject');
+        $table->text('message');
+        $table->string('status')->default('0'); // Add this line!
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

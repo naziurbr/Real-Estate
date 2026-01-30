@@ -19,28 +19,29 @@ class UserFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'phone' => fake()->phoneNumber(),
-            'address' => fake()->address(),
-            'photo' => fake()->imageUrl('60','60'),
-            'role' => fake()->randomElement(['admin','agent','user']),
-            'status' => fake()->randomElement(['active','inactive']),
-            'remember_token' => Str::random(10),
-        ];
-    }
+{
+    return [
+        'name' => $this->faker->name(),
+        'username' => $this->faker->userName(),
+        'email' => $this->faker->unique()->safeEmail(),
+        'email_verified_at' => now(),
+        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password (or use Hash::make('123456'))
+        'phone' => $this->faker->phoneNumber(),
+        'address' => $this->faker->address(),
+        'photo' => null, // You can add a placeholder image URL here later
+        'role' => $this->faker->randomElement(['admin', 'agent', 'user']),
+        'status' => 'active',
+        'remember_token' => \Illuminate\Support\Str::random(10),
+    ];
+}
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
+    public function agent(): static
+{
+    return $this->state(fn (array $attributes) => [
+        'role' => 'agent',
+    ]);
+}
 }
